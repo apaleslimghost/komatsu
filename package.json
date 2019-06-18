@@ -1,0 +1,50 @@
+{
+	"name": "komatsu",
+	"version": "0.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "eslint index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/quarterto/komatsu.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/quarterto/komatsu/issues"
+	},
+	"homepage": "https://github.com/quarterto/komatsu#readme",
+	"devDependencies": {
+		"husky": "^2.3.0",
+		"prettier": "^1.17.0",
+		"eslint": "^5.16.0",
+		"@quarterto/eslint-config": "^1.4.0",
+		"@quarterto/prettier": "^1.1.0",
+		"lint-staged": "^8.1.7"
+	},
+	"eslintConfig": {
+		"extends": [
+			"@quarterto"
+		]
+	},
+	"prettier": "@quarterto/prettier",
+	"lint-staged": {
+		"*": [
+			"prettier --write",
+			"git add"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"dependencies": {
+		"ansi-colors": "^3.2.4",
+		"cli-spinners": "^2.1.0",
+		"log-update": "^3.2.0"
+	}
+}
