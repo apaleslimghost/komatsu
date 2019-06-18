@@ -32,7 +32,7 @@
 	},
 	"prettier": "@quarterto/prettier",
 	"lint-staged": {
-		"*": [
+		"*.{js,json}": [
 			"prettier --write",
 			"git add"
 		]
