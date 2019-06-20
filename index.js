@@ -84,6 +84,30 @@ class Spinners {
 		}
 	}
 
+	async logPromise(promise, labels) {
+		if (typeof labels === 'string') {
+			labels = {
+				pending: labels,
+				done: `finished ${labels}`,
+				fail: `error with ${labels}`,
+			}
+		}
+
+		const id = Math.floor(parseInt(`zzzzzz`, 36) * Math.random())
+			.toString(36)
+			.padStart(6, '0')
+
+		this.log(id, { message: labels.pending })
+		try {
+			const result = await promise
+			this.log(id, { status: 'done', message: labels.done })
+			return result
+		} catch (error) {
+			this.log(id, { status: 'fail', message: labels.fail, error })
+			throw error
+		}
+	}
+
 	render() {
 		return Array.from(this.spinners.values(), renderSpinner).join('\n')
 	}
