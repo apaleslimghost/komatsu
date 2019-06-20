@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "eslint index.js"
+		"test": "eslint index.js",
+		"release": "r() { npm version $1 ; npm publish ; git push origin head --tags ; } ; r"
 	},
 	"repository": {
 		"type": "git",
