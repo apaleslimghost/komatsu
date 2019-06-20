@@ -72,6 +72,7 @@ class Spinners {
 		this.startSpinner(id)
 
 		Object.assign(this.spinners.get(id), data)
+		this.tick()
 
 		if (
 			this.spinners.size &&
