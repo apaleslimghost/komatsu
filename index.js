@@ -39,6 +39,8 @@ class Spinners {
 
 	stop() {
 		clearInterval(this.timer)
+		delete this.timer
+
 		this.tick()
 		logUpdate.done()
 		this.spinners.clear()
