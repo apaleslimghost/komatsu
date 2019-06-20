@@ -2,30 +2,6 @@ const logUpdate = require('log-update')
 const colour = require('ansi-colors')
 const { dots } = require('cli-spinners')
 
-const renderMessage = spinner => colour.italic(spinner.message)
-
-const renderSymbol = spinner => {
-	switch (spinner.status) {
-		case 'pending':
-			return colour.blue(dots.frames[spinner.frame])
-		case 'done':
-			return colour.green.bold('✓')
-		case 'fail':
-			return colour.red.bold('✗')
-		case 'info':
-			return colour.blue.bold('ℹ︎')
-	}
-}
-
-const renderError = spinner =>
-	spinner.error
-		? `
-${spinner.error.stack}`
-		: ''
-
-const renderSpinner = spinner =>
-	` ${renderSymbol(spinner)} ${renderMessage(spinner)}${renderError(spinner)}`
-
 class Spinners {
 	constructor() {
 		this.spinners = new Map()
@@ -109,7 +85,36 @@ class Spinners {
 	}
 
 	render() {
-		return Array.from(this.spinners.values(), renderSpinner).join('\n')
+		return Array.from(this.spinners.values(), this.renderSpinner, this).join(
+			'\n',
+		)
+	}
+
+	renderMessage(spinner) {
+		return colour.italic(spinner.message)
+	}
+
+	renderSymbol(spinner) {
+		switch (spinner.status) {
+			case 'pending':
+				return colour.blue(dots.frames[spinner.frame])
+			case 'done':
+				return colour.green.bold('✓')
+			case 'fail':
+				return colour.red.bold('✗')
+			case 'info':
+				return colour.blue.bold('ℹ︎')
+		}
+	}
+
+	renderError(spinner) {
+		return spinner.error ? '\n' + spinner.error.stack : ''
+	}
+
+	renderSpinner(spinner) {
+		return ` ${this.renderSymbol(spinner)} ${this.renderMessage(
+			spinner,
+		)}${this.renderError(spinner)}`
 	}
 
 	tick() {
