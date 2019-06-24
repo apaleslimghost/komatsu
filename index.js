@@ -1,4 +1,4 @@
-const logUpdate = require('log-update')
+const logUpdate = require('./log-update')
 const colour = require('ansi-colors')
 const { dots } = require('cli-spinners')
 
