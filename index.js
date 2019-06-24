@@ -9,7 +9,7 @@ class Spinners {
 
 	start() {
 		if (!this.timer) {
-			this.timer = setInterval(() => this.tick(), 1)
+			this.timer = setInterval(() => this.tick(), 100)
 		}
 	}
 
