@@ -38,7 +38,7 @@ const main = (stream, options) => {
 	}
 
 	render.clear = () => {
-		stream.write(moveLines(prevLineCount))
+		stream.write(ansiEscapes.eraseLines(prevLineCount))
 		prevLineCount = 0
 	}
 

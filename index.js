@@ -47,7 +47,13 @@ class Spinners {
 		this.start()
 		this.startSpinner(id)
 
-		Object.assign(this.spinners.get(id), data)
+		const previous = this.spinners.get(id)
+
+		if (data.status && previous.status !== data.status) {
+			logUpdate.clear()
+		}
+
+		Object.assign(previous, data)
 		this.tick()
 
 		if (
