@@ -17,6 +17,22 @@ const moveLines = count => {
 	return clear
 }
 
+const getWidth = stream => {
+	const { columns } = stream
+
+	if (!columns) {
+		return 80
+	}
+
+	// Windows appears to wrap a character early
+	// I hate Windows so much
+	if (process.platform === 'win32') {
+		return columns - 1
+	}
+
+	return columns
+}
+
 const main = (stream, options) => {
 	options = Object.assign(
 		{
@@ -34,7 +50,12 @@ const main = (stream, options) => {
 
 		const out = args.join(' ') + '\n'
 		stream.write(moveLines(prevLineCount) + out)
-		prevLineCount = out.split('\n').length
+
+		const width = getWidth(stream)
+		prevLineCount = out
+			.split('\n')
+			.map(line => 1 + Math.floor(line.length / width))
+			.reduce((a, b) => a + b)
 	}
 
 	render.clear = () => {
