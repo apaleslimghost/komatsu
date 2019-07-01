@@ -53,14 +53,10 @@ const main = (stream, options) => {
 		stream.write(moveLines(prevLineCount) + out)
 
 		const width = getWidth(stream)
-
 		prevLineCount = stripAnsi(out)
 			.split('\n')
 			.map(line => Math.floor(line.length / width) + 1)
 			.reduce((a, b) => a + b)
-
-		// stream.write(prevLineCount.toString())
-		// console.log(out, `\n------ ${prevLineCount}`)
 	}
 
 	render.clear = () => {
