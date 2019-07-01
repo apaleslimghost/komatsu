@@ -2,6 +2,9 @@ const logUpdate = require('./log-update')
 const colour = require('ansi-colors')
 const { dots } = require('cli-spinners')
 
+const invoke = (func, ...args) =>
+	typeof func === 'function' ? func(...args) : func
+
 class Spinners {
 	constructor() {
 		this.spinners = new Map()
@@ -82,13 +85,17 @@ class Spinners {
 			.toString(36)
 			.padStart(6, '0')
 
-		this.log(id, { message: labels.pending })
+		this.log(id, { message: invoke(labels.pending) })
 		try {
 			const result = await promise
-			this.log(id, { status: 'done', message: labels.done })
+			this.log(id, { status: 'done', message: invoke(labels.done, result) })
 			return result
 		} catch (error) {
-			this.log(id, { status: 'fail', message: labels.fail, error })
+			this.log(id, {
+				status: 'fail',
+				message: invoke(labels.fail, error),
+				error,
+			})
 			throw error
 		}
 	}
