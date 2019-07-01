@@ -49,7 +49,10 @@ class Spinners {
 
 		const previous = this.spinners.get(id)
 
-		if (data.status && previous.status !== data.status) {
+		if (
+			(data.status && previous.status !== data.status) ||
+			previous.message.length > data.message.length
+		) {
 			logUpdate.clear()
 		}
 

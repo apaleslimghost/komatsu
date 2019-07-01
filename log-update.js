@@ -2,6 +2,7 @@
 
 const ansiEscapes = require('ansi-escapes')
 const cliCursor = require('cli-cursor')
+const stripAnsi = require('@quarterto/strip-ansi')
 
 const moveLines = count => {
 	let clear = ''
@@ -52,10 +53,14 @@ const main = (stream, options) => {
 		stream.write(moveLines(prevLineCount) + out)
 
 		const width = getWidth(stream)
-		prevLineCount = out
+
+		prevLineCount = stripAnsi(out)
 			.split('\n')
-			.map(line => 1 + Math.floor(line.length / width))
+			.map(line => Math.floor(line.length / width) + 1)
 			.reduce((a, b) => a + b)
+
+		// stream.write(prevLineCount.toString())
+		// console.log(out, `\n------ ${prevLineCount}`)
 	}
 
 	render.clear = () => {
