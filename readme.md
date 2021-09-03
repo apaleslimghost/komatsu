@@ -28,4 +28,4 @@ while any logger is `pending`, new loggers (with a label that hasn't been seen y
 
 ## licence
 
-ISC. &copy; Bren Brightwell
+ISC. &copy; Kara Brightwell
